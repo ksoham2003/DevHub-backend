@@ -63,19 +63,16 @@ const blogSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Generate slug before saving
 blogSchema.pre('save', function(next) {
   if (this.isModified('title')) {
     this.slug = slugify(this.title, { lower: true, strict: true }) + '-' + Date.now().toString(36);
   }
-  // Auto-generate excerpt from content if not provided
   if (!this.excerpt && this.content) {
     this.excerpt = this.content.replace(/[#*`>\-\[\]()!]/g, '').substring(0, 250).trim() + '...';
   }
   next();
 });
 
-// Index for search
 blogSchema.index({ title: 'text', content: 'text', tags: 'text' });
 blogSchema.index({ author: 1, createdAt: -1 });
 blogSchema.index({ published: 1, createdAt: -1 });

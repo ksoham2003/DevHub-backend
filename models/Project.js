@@ -53,7 +53,6 @@ const projectSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for search
 projectSchema.index({ title: 'text', description: 'text', techStack: 'text' });
 projectSchema.index({ author: 1, createdAt: -1 });
 projectSchema.index({ likesCount: -1 });
