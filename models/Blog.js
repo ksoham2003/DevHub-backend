@@ -78,7 +78,6 @@ blogSchema.pre('save', function(next) {
 // Index for search
 blogSchema.index({ title: 'text', content: 'text', tags: 'text' });
 blogSchema.index({ author: 1, createdAt: -1 });
-blogSchema.index({ slug: 1 });
 blogSchema.index({ published: 1, createdAt: -1 });
 
 module.exports = mongoose.model('Blog', blogSchema);
